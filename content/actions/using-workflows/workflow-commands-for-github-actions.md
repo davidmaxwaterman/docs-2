@@ -615,12 +615,13 @@ steps:
 
 ### Multiline strings
 
-For multiline strings, you may use a delimiter with the following syntax. 
+For multiline strings, you may use a delimiter with the following 'heredoc' syntax. 
 
 ```{:copy}
-{name}<<{delimiter}
+{name}=$(cat <<{delimiter}
 {value}
 {delimiter}
+)
 ```
 
 #### Example
@@ -634,9 +635,10 @@ steps:
   - name: Set the value in bash
     id: step_one
     run: |
-      echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+      echo 'JSON_RESPONSE=$(cat <<EOF' >> $GITHUB_ENV
       curl https://example.lab >> $GITHUB_ENV
       echo 'EOF' >> $GITHUB_ENV
+      echo ')' >> $GITHUB_ENV
 ```
 
 {% endbash %}
